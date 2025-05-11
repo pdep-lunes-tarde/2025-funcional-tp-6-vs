@@ -19,8 +19,6 @@
 - Legajo: **Completar**
 - Nombre: **Completar**
 
-- Legajo: **Completar**
-- Nombre: **Completar**
 
 
 ## El enunciado
