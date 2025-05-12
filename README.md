@@ -11,16 +11,14 @@
 
 ## Equipo
 
-- Nombre del grupo
+- Nombre del grupo: **VS**
 
-- Legajo: **Completar**
-- Nombre: **Completar**
+- Legajo: **214.087-1**
+- Nombre: **Valentina Romero**
 
-- Legajo: **Completar**
-- Nombre: **Completar**
+- Legajo: **213.742-2**
+- Nombre: **Santino Gerardi**
 
-- Legajo: **Completar**
-- Nombre: **Completar**
 
 
 ## El enunciado
