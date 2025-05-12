@@ -25,17 +25,18 @@ data Hamburguesa = Hamburguesa {
     ingredientes :: [Ingrediente]
 } deriving (Eq, Show)
 
-cuartoDeLibra = Hamburguesa {precioBase = 20, ingredientes = [Pan,Carne,Cheddar,Pan]}
+cuartoDeLibra = Hamburguesa 20 [Pan,Carne,Cheddar,Pan]
 
 agrandarHamburguesa :: Hamburguesa -> Hamburguesa
 agrandarHamburguesa unaHamburguesa
     | Carne `elem` ingredientes unaHamburguesa = agregarIngrediente Carne unaHamburguesa
     | Pollo`elem` ingredientes unaHamburguesa = agregarIngrediente Pollo unaHamburguesa
     | PatyVegano `elem` ingredientes unaHamburguesa = agregarIngrediente PatyVegano unaHamburguesa
-    | otherwise = agregarIngrediente PatyVegano unaHamburguesa
+    | otherwise = unaHamburguesa
 
 agregarIngrediente :: Ingrediente->Hamburguesa -> Hamburguesa
-agregarIngrediente ingrediente unaHamburguesa = unaHamburguesa { precioBase= precioBase unaHamburguesa ,ingredientes = agregarALaHAmburguesa ingrediente (ingredientes unaHamburguesa)}
+agregarIngrediente ingrediente unaHamburguesa =
+     unaHamburguesa {ingredientes = agregarALaHAmburguesa ingrediente (ingredientes unaHamburguesa)}
 
 agregarALaHAmburguesa :: Ingrediente -> [Ingrediente]-> [Ingrediente]
 agregarALaHAmburguesa ingrediente [] = []
@@ -44,10 +45,12 @@ agregarALaHAmburguesa ingrediente (x:xs)
     |otherwise= x :ingrediente:xs --se supone que la primera es un pan y el resto es la hamburguesa
 
 descuento :: Number-> Hamburguesa -> Hamburguesa
-descuento porcentaje unaHamburguesa = unaHamburguesa { precioBase = precioBase unaHamburguesa - precioBase cuartoDeLibra * porcentaje/100 }
+descuento porcentaje unaHamburguesa = 
+    unaHamburguesa { precioBase = precioBase unaHamburguesa - precioBase cuartoDeLibra * porcentaje/100 }
 
 precioDeLaHamburguesa :: Hamburguesa -> Hamburguesa
-precioDeLaHamburguesa  unaHamburguesa = unaHamburguesa {precioBase =(+) (precioBase cuartoDeLibra). sum . map precioIngrediente  $ ingredientes unaHamburguesa, ingredientes = ingredientes unaHamburguesa}
+precioDeLaHamburguesa  unaHamburguesa = 
+    unaHamburguesa {precioBase =(+) (precioBase cuartoDeLibra). sum . map precioIngrediente  $ ingredientes unaHamburguesa}
 
 pdepBurger =
     descuento descuentoDePdep.
@@ -81,7 +84,7 @@ delDia = descuento descuentoDelDia. precioDeLaHamburguesa .agregarIngrediente Pa
 -- =========================Parte 3====================================
 
 hacerVeggie :: Hamburguesa -> Hamburguesa 
-hacerVeggie unaHamburguesa = unaHamburguesa {precioBase= 110,ingredientes = map ingredientesAVergano (ingredientes unaHamburguesa)}
+hacerVeggie unaHamburguesa = unaHamburguesa {ingredientes = map ingredientesAVergano (ingredientes unaHamburguesa)}
 
 ingredientesAVergano :: Ingrediente -> Ingrediente
 ingredientesAVergano Carne = PatyVegano
